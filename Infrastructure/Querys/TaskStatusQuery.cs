@@ -39,5 +39,17 @@ namespace Infrastructure.Querys
 
             return list;
         }
+
+        public async Task<bool> existe(int id)
+        {
+            var exist = await _context.TaskStatus.AnyAsync(t => t.Id == id);
+
+            if (!exist)
+            {
+                throw new InvalidOperationException("El id introducido para Status no coincide con ningun registro");
+
+            }
+            return exist;
+        }
     }
 }

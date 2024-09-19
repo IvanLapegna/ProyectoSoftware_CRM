@@ -23,6 +23,9 @@ namespace Application.UseCase
             return users;
         }
 
-
+        public async Task<bool> existe(int id)
+        {
+            return await _userQuey.existe(id);
+        }
     }
 }

@@ -14,15 +14,21 @@ namespace Application.UseCase
     {
         private readonly ITaskCommand _taskCommand;
         private readonly ITaskQuery _taskQuery;
-
-        public TaskService(ITaskCommand taskCommand, ITaskQuery taskQuery)
+        private readonly IUserService _userService;
+        private readonly ITaskStatusService _taskStatusService;
+        public TaskService(ITaskCommand taskCommand, ITaskQuery taskQuery, IUserService userService, ITaskStatusService taskStatusService)
         {
             _taskCommand = taskCommand;
             _taskQuery = taskQuery;
+            _userService = userService;
+            _taskStatusService = taskStatusService;
         }
 
         public async Task<TasksResponse> InsertTask(Guid projectId, TaskRequest request)
         {
+            await _userService.existe(request.user);
+            await _taskStatusService.existe(request.Status);
+
             return await _taskCommand.CreateTask(projectId, request);
 
         }

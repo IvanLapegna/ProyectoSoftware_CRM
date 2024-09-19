@@ -40,6 +40,7 @@ namespace Infrastructure.Command
                 DueDate = request.DueDate,
                 AssignedTo = request.user,
                 Status = request.Status,
+                CreateDate = DateTime.Now,
             };
 
             project.Tasks.Add(task);
@@ -78,6 +79,7 @@ namespace Infrastructure.Command
             task.DueDate = request.DueDate;
             task.AssignedTo = request.user;
             task.Status = request.Status;
+            task.UpdateDate = DateTime.Now;
 
             _context.Tasks.Update(task);
             await _context.SaveChangesAsync();

@@ -2,6 +2,7 @@
 using Application.Models;
 using Domain.Entities;
 using Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using MySqlX.XDevAPI;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,16 @@ namespace Infrastructure.Command
             _context.Add(project);
             await _context.SaveChangesAsync();      
         }
+
+        public async Task update(Guid projectId)
+        {
+            var proyect = await _context.Projects
+                            .FirstOrDefaultAsync(p => p.ProjectID == projectId);
+            proyect.UpdateDate = DateTime.Now;
+
+            await _context.SaveChangesAsync();
+        }
+
 
 
     }

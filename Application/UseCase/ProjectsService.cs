@@ -20,6 +20,7 @@ namespace Application.UseCase
         private readonly ICampaignTypesService _campaignTypesService;
         private readonly IClientService _clientService;
         private readonly IInteractionTypesService _interactionTypesService;
+        private readonly IUserService _userService;
         public ProjectsService(IProjectsCommand command, IProjectsQuery query, IInteractionService interactionService, ITaskService taskService, IClientService clientsService, ICampaignTypesService campaignTypesService, IInteractionTypesService interactionTypesService)
         {
             _command = command;
@@ -52,8 +53,6 @@ namespace Application.UseCase
                 ClientID = request.ClientID.Value,
                 CampaignType = request.CampaignType.Value,
                 CreateDate = DateTime.Now,
-                UpdateDate = DateTime.Now,
-
             };
             await _command.insertProject(project);
 
@@ -86,6 +85,7 @@ namespace Application.UseCase
             await _projectsQuery.ProjectExist(id);
             request.validacion();
             await _interactionTypesService.existe(request.InteractionType);
+            await _command.update(id);
             return await _interactionService.InsertInteraction(id, request);
         }
 
@@ -93,7 +93,9 @@ namespace Application.UseCase
         {
             await _projectsQuery.ProjectExist(id);
             request.validacion();
-            return await _taskService.InsertTask(id, request);
+            var result = await _taskService.InsertTask(id, request);
+            await _command.update(id);
+            return result;
 
         }
 
@@ -123,6 +125,7 @@ namespace Application.UseCase
                 }
             };
 
+            await _command.update(task.ProjectID);
             return response;
 
         }

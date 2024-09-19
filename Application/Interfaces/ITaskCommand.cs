@@ -13,5 +13,7 @@ namespace Application.Interfaces
         Task<TasksResponse> CreateTask(Guid projectId, TaskRequest request);
 
         Task UpdateTask(Guid id, TaskRequest request);
+
+
     }
 }

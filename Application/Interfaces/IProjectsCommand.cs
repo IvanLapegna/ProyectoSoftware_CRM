@@ -11,6 +11,6 @@ namespace Application.Interfaces
     public interface IProjectsCommand
     {
         Task insertProject(Projects project);
-
+        Task update(Guid projectId);
     }
 }

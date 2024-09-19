@@ -11,6 +11,7 @@ namespace Application.Interfaces
     {
         Task<ICollection<UserResponse>> GetAll();
 
+        Task<bool> existe(int id);
 
     }
 }

@@ -22,5 +22,10 @@ namespace Application.UseCase
             var taskStatus = await _taskStatusQuery.GetAll();
             return taskStatus;
         }
+
+        public async Task<bool> existe(int id)
+        {
+            return await _taskStatusQuery.existe(id);
+        }
     }
 }

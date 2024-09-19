@@ -7,12 +7,12 @@ using Infrastructure.Querys;
 using Microsoft.EntityFrameworkCore;
 using MySqlX.XDevAPI;
 using Newtonsoft.Json.Converters;
+using System.ComponentModel;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
