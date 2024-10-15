@@ -22,18 +22,8 @@ namespace Infrastructure.Command
             _context = context;
         }
 
-        public async Task<TasksResponse> CreateTask(Guid projectId, TaskRequest request)
+        public async Task<Tasks> CreateTask(Projects project, TaskRequest request)
         {
-            var project = await _context.Projects
-                .Include(p => p.Tasks)
-                .FirstOrDefaultAsync(p => p.ProjectID == projectId);
-
-            var taskStatus = await _context.TaskStatus
-                .FirstOrDefaultAsync(t => t.Id == request.Status);
-
-            var user = await _context.Users
-                .FirstOrDefaultAsync(u => u.UserID == request.user);
-
             var task = new Tasks
             {
                 Name = request.Name,
@@ -44,36 +34,16 @@ namespace Infrastructure.Command
             };
 
             project.Tasks.Add(task);
+
             await _context.SaveChangesAsync();
 
-            var response = new TasksResponse
-            {
-                TaskID = task.TaskID,
-                TaskName = task.Name,
-                TaskDueDate = task.DueDate,
-                ProjectID = projectId,
-                TaskStatus = new GenericResponse
-                {
-                    Id = request.Status,
-                    Name = task.TaskStatus.Name,
-                },
-                TaskUser = new UserResponse
-                {
-                    UserID = request.user,
-                    UserName = user.Name,
-                    UserEmail = user.Email,
+            return task;
 
-                }
-
-            };
-
-            return response;
+            
         }
 
-        public async Task UpdateTask(Guid Id, TaskRequest request)
+        public async Task UpdateTask(Tasks task, TaskRequest request)
         {
-            var task = await _context.Tasks
-                .FirstOrDefaultAsync(t => t.TaskID == Id);
 
             task.Name = request.Name;
             task.DueDate = request.DueDate;

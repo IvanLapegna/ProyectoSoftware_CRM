@@ -13,5 +13,7 @@ namespace Application.Interfaces
         Task<ICollection<GenericResponse>> GetAll();
 
         Task<bool> existe(int id);
+
+        Task<GenericResponse> GetById(int id);
     }
 }

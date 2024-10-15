@@ -9,15 +9,15 @@ namespace Application.Response
 {
     public class TasksResponse
     {
-        public Guid TaskID { get; set; }
+        public Guid id { get; set; }
 
-        public string TaskName { get; set; }
-        public DateTime TaskDueDate { get; set; }
-        public Guid ProjectID { get; set; }
+        public string name { get; set; }
+        public DateTime dueDate { get; set; }
+        public Guid projectId { get; set; }
 
-        public GenericResponse TaskStatus { get; set; }
+        public GenericResponse status { get; set; }
 
-        public UserResponse TaskUser { get; set; }
+        public UserResponse userAssigned { get; set; }
 
     }
 }

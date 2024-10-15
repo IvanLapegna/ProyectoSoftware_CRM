@@ -1,5 +1,6 @@
 ﻿using Application.Models;
 using Application.Response;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,9 @@ namespace Application.Interfaces
 {
     public interface ITaskCommand
     {
-        Task<TasksResponse> CreateTask(Guid projectId, TaskRequest request);
+        Task<Tasks> CreateTask(Projects project, TaskRequest request);
 
-        Task UpdateTask(Guid id, TaskRequest request);
+        Task UpdateTask(Tasks task, TaskRequest request);
 
 
     }

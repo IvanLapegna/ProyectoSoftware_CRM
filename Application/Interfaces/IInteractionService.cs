@@ -1,5 +1,6 @@
 ﻿using Application.Models;
 using Application.Response;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Application.Interfaces
 {
     public interface IInteractionService
     {
-        Task<InteractionsResponse> InsertInteraction(Guid projectId, InteractionRequest request);
+        Task<InteractionsResponse> InsertInteraction(Projects p,InteractionRequest request);
 
     }
 }

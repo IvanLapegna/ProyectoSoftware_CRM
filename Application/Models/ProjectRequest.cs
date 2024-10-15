@@ -43,6 +43,11 @@ namespace Application.Models
             {
                 throw new ArgumentException(nameof(EndDate));
             }
+            else if (EndDate < StartDate)
+            {
+                throw new InvalidDataException("La fecha de finalización no puede ser anterior a la de inicio");
+            }
+
         }
     }
 }

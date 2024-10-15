@@ -10,8 +10,9 @@ namespace Application.Interfaces
 {
     public interface IClientQuery
     {
-        Task<ICollection<ClientsResponse>> GetAll();
+        Task<ICollection<Clients>> GetAll();
 
         Task<bool> existe(int id);
+        Task<Clients> GetById(int id);
     }
 }

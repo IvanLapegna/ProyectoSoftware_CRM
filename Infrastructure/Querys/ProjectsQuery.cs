@@ -22,7 +22,7 @@ namespace Infrastructure.Querys
             _context = context;
         }
 
-        public async Task<ICollection<ProjectsResponse>> GetAll(string? name, int? campaignType, int? client, int? offset, int? size)
+        public async Task<ICollection<Projects>> GetAll(string? name, int? campaign, int? client, int? offset, int? size)
         {
             var query = _context.Projects
                 .Include(p => p.Client)
@@ -34,9 +34,9 @@ namespace Infrastructure.Querys
                 query = query.Where(p => p.ProjectName.Contains(name));
             }
 
-            if(!string.IsNullOrEmpty(campaignType.ToString())) 
+            if(!string.IsNullOrEmpty(campaign.ToString())) 
             {
-                query = query.Where(p => p.CampaignTypeObj.Id.Equals(campaignType));
+                query = query.Where(p => p.CampaignTypeObj.Id.Equals(campaign));
             }
 
             if (!string.IsNullOrEmpty(client.ToString()))
@@ -51,38 +51,16 @@ namespace Infrastructure.Querys
 
             if (size != null)
             {
-                query = query.Skip(size.Value);
+                query = query.Take(size.Value);
             }
             var project = await query.ToListAsync();
 
-            var response = project.Select(project => new ProjectsResponse
-            {
-                ID = project.ProjectID,
-                Name = project.ProjectName,
-                Start = project.StartDate,
-                End = project.EndDate,
-                Client = new ClientsResponse
-                {
-                    ClientID = project.ClientID,
-                    Name = project.Client.Name,
-                    Email = project.Client.Email,
-                    Company = project.Client.Company,
-                    Phone = project.Client.Phone,
-                    Address = project.Client.Address
-                },
-                CampaignType = new GenericResponse
-                {
-                    Id = project.CampaignType,
-                    Name = project.CampaignTypeObj.Name,
-                }
-            }).ToList();
-
-            return response;
+            return project;
 
         }
 
 
-        public async Task<ProjectDetails> GetProject(Guid id)
+        public async Task<Projects> GetProject(Guid id)
         {
             var project = await _context.Projects
             .Include(p => p.Client)
@@ -95,71 +73,14 @@ namespace Infrastructure.Querys
                     .ThenInclude(i => i.InteractionTypesObj)
             .FirstOrDefaultAsync(p => p.ProjectID == id);
 
+
             if (project == null)
             {
                 return null;
             }
 
-            var details = new ProjectDetails
-            {
-                data = new ProjectsResponse
-                {
-                    ID = project.ProjectID,
-                    Name = project.ProjectName,
-                    Start = project.StartDate,
-                    End = project.EndDate,
-                    Client = new ClientsResponse
-                    {
-                        ClientID = project.ClientID,
-                        Name = project.Client.Name,
-                        Email = project.Client.Email,
-                        Company = project.Client.Company,
-                        Phone = project.Client.Phone,
-                        Address = project.Client.Address
-                    },
 
-                    CampaignType = new GenericResponse
-                    {
-                        Id = project.CampaignType,
-                        Name = project.CampaignTypeObj.Name,
-                    }
-                },
-
-                Interactions = project.Interactions.Select(i => new InteractionsResponse
-                {
-                    InteractionID = i.InteractionID,
-                    Notes = i.Notes,
-                    Date = i.Date,
-                    ProjectID = project.ProjectID,
-                    InteractionTypesObj = new GenericResponse
-                    {
-                        Id = i.InteractionType,
-                        Name = i.InteractionTypesObj.Name,
-                    }
-                }).ToList(),
-
-                Tasks = project.Tasks.Select(t => new TasksResponse
-                {
-                    TaskID = t.TaskID,
-                    TaskName = t.Name,
-                    TaskDueDate = t.DueDate,
-                    ProjectID = project.ProjectID,
-                    TaskStatus = new GenericResponse
-                    {
-                        Id = t.Status,
-                        Name = t.TaskStatus.Name,
-                    },
-                    TaskUser = new UserResponse
-                    {
-                        UserID = t.AssignedTo,
-                        UserName = t.User.Name,
-                        UserEmail = t.User.Email,
-                    }
-                }).ToList(),
-            };
-
-
-             return details;
+             return project;
             
 
         }

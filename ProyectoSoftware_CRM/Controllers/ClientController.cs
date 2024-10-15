@@ -10,12 +10,12 @@ namespace ProyectoSoftware_CRM.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class ClientsController : ControllerBase
+    public class ClientController : ControllerBase
     {
         
         private readonly IClientService _clientService;
 
-        public ClientsController(IClientService clientService)
+        public ClientController(IClientService clientService)
         {
             _clientService = clientService;
         }

@@ -9,42 +9,19 @@ namespace Application.Models
 {
     public class ClientRequest
     {
-        public string ClientName { get; set; }
-        public string ClientEmail { get; set; }
+        public string name { get; set; }
+        public string email { get; set; }
 
-        public string ClientPhone { get; set; }
-        public string ClientCompany { get; set; }
+        public string company { get; set; }
+        public string phone { get; set; }
 
-        public string ClientAddress { get; set; }
+        public string address { get; set; }
 
-        public void validacion()
-        {
-            if (string.IsNullOrWhiteSpace(ClientName))
-            {
-                throw new ArgumentNullException(nameof(ClientName));
-            }
-            else if (string.IsNullOrWhiteSpace(ClientEmail))
-            {
-                throw new ArgumentNullException(nameof(ClientEmail));
-            }
-            else if (string.IsNullOrWhiteSpace(ClientPhone))
-            {
-                throw new ArgumentNullException(nameof(ClientPhone));
-            }
-            else if (string.IsNullOrWhiteSpace(ClientCompany))
-            {
-                throw new ArgumentNullException(nameof(ClientCompany));
-            }
-            else if (string.IsNullOrWhiteSpace(ClientAddress))
-            {
-                throw new ArgumentNullException(nameof(ClientAddress));
-            }
-        }
 
         public void validaciones()
         {
             string respuesta = null;
-            var valores = new Dictionary<string, string> { { nameof(ClientName), ClientName }, { nameof(ClientEmail), ClientEmail } };
+            var valores = new Dictionary<string, string> { { nameof(name), name }, { nameof(email), email } };
 
             foreach (var property in valores)
             {

@@ -12,7 +12,7 @@ namespace Application.Interfaces
 {
     public interface ITaskService
     {
-        Task<TasksResponse> InsertTask(Guid projectId, TaskRequest request);
+        Task<TasksResponse> InsertTask(Projects project, TaskRequest requestt);
 
         Task UpdateTask(Guid id, TaskRequest request);
         Task<Tasks> GetById(Guid id);

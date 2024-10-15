@@ -24,18 +24,40 @@ namespace Application.UseCase
             _taskStatusService = taskStatusService;
         }
 
-        public async Task<TasksResponse> InsertTask(Guid projectId, TaskRequest request)
+        public async Task<TasksResponse> InsertTask(Projects project, TaskRequest request)
         {
             await _userService.existe(request.user);
             await _taskStatusService.existe(request.Status);
+            var task = await _taskCommand.CreateTask(project, request);
 
-            return await _taskCommand.CreateTask(projectId, request);
+            var response = new TasksResponse
+            {
+                id = task.TaskID,
+                name = task.Name,
+                dueDate = task.DueDate,
+                projectId = project.ProjectID,
+                status = new GenericResponse
+                {
+                    Id = request.Status,
+                    Name = task.TaskStatus.Name,
+                },
+                userAssigned = new UserResponse
+                {
+                    id = request.user,
+                    name = task.User.Name,
+                    email = task.User.Email,
+
+                }
+
+            };
+            return response;
 
         }
 
         public async Task UpdateTask(Guid id, TaskRequest request)
-        {
-            await _taskCommand.UpdateTask(id , request);
+        {   
+            var task = await _taskQuery.GetById(id);
+            await _taskCommand.UpdateTask(task, request);
 
 
         }

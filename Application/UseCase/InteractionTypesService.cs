@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Application.Response;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,12 +21,26 @@ namespace Application.UseCase
         public async Task<ICollection<GenericResponse>> GetAll()
         {
             var interactionTypes = await _interactionTypesQuery.GetAll();
-            return interactionTypes;
+            ICollection<GenericResponse> list = new List<GenericResponse>();
+            foreach (var x in interactionTypes)
+            {
+                GenericResponse res = new GenericResponse()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                };
+                list.Add(res);
+
+
+            };
+            return list;
         }
 
         public async Task<bool> existe(int id)
         {
             return await _interactionTypesQuery.existe(id);
         }
+
+        
     }
 }

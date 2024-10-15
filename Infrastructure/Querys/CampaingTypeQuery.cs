@@ -21,23 +21,12 @@ namespace Infrastructure.Querys
             _context = context;
         }
 
-        public async Task<ICollection<GenericResponse>> GetAll()
+        public async Task<ICollection<CampaignTypes>> GetAll()
         {
             var campaignTypes = await _context.CampaignTypes.ToListAsync();
-            ICollection<GenericResponse> list = new List<GenericResponse>();
-            foreach (var x in campaignTypes)
-            {
-                GenericResponse res = new GenericResponse()
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                };
-                list.Add(res);
+            
 
-
-            };
-
-            return list;
+            return campaignTypes;
         }
 
         public async Task<bool> existe(int id)
@@ -52,6 +41,13 @@ namespace Infrastructure.Querys
             return exist;
         }
 
+        public async Task<CampaignTypes> GetById(int id)
+        {
+            var type = await _context.CampaignTypes.FirstOrDefaultAsync(c => c.Id == id);
+            return type;
+
+
+        }
 
     }
 }

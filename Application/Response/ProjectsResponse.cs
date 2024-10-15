@@ -19,7 +19,30 @@ namespace Application.Response
         public GenericResponse CampaignType { get; set; }
 
 
-
+        public static ProjectsResponse FromProject(Projects project)
+        {
+            return new ProjectsResponse
+            {
+                ID = project.ProjectID,
+                Name = project.ProjectName,
+                Start = project.StartDate,
+                End = project.EndDate,
+                Client = new ClientsResponse
+                {
+                    id = project.ClientID,
+                    Name = project.Client.Name,
+                    Email = project.Client.Email,
+                    Company = project.Client.Company,
+                    Phone = project.Client.Phone,
+                    Address = project.Client.Address
+                },
+                CampaignType = new GenericResponse
+                {
+                    Id = project.CampaignType,
+                    Name = project.CampaignTypeObj.Name,
+                }
+            };
+        }
 
     }
 

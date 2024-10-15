@@ -7,11 +7,11 @@ namespace ProyectoSoftware_CRM.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class CampaingTypesController : ControllerBase
+    public class CampaingTypeController : ControllerBase
     {
         private readonly ICampaignTypesService _campaignTypesService;
 
-        public CampaingTypesController(ICampaignTypesService campaignTypesService)
+        public CampaingTypeController(ICampaignTypesService campaignTypesService)
         {
             _campaignTypesService = campaignTypesService;
         }

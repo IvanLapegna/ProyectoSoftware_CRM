@@ -10,9 +10,9 @@ namespace Application.Interfaces
 {
     public interface IProjectsQuery
     {
-        Task<ICollection<ProjectsResponse>> GetAll(string? name, int? campaignType, int? client, int? offset, int? size);
+        Task<ICollection<Projects>> GetAll(string? name, int? campaignType, int? client, int? offset, int? size);
 
-        Task<ProjectDetails> GetProject(Guid id);
+        Task<Projects> GetProject(Guid id);
 
         Task<bool> ProjectNameExist(string projectName);
 

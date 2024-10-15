@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Application.Response;
+using Domain.Entities;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -19,18 +20,9 @@ namespace Infrastructure.Querys
             _context = context;
         }
 
-        public async Task<ICollection<UserResponse>> GetAll()
+        public async Task<ICollection<Users>> GetAll()
         {
-            var users = await _context.Users
-                .Select(users => new UserResponse
-                {
-                   UserID = users.UserID,
-                   UserName = users.Name,
-                   UserEmail = users.Email,
-                }).ToListAsync();
-
-
-
+            var users = await _context.Users.ToListAsync();
             return users;
         }
 
@@ -45,6 +37,12 @@ namespace Infrastructure.Querys
 
             }
             return exist;
+        }
+
+        public async Task<Users> GetUser(int id)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(c => c.UserID == id);
+            return user;
         }
     }
 }

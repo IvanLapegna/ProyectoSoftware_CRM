@@ -9,8 +9,8 @@ namespace Application.Response
 {
     public class UserResponse
     {
-        public int UserID { get; set; }
-        public string UserName { get; set; }
-        public string UserEmail { get; set; }
+        public int id { get; set; }
+        public string name { get; set; }
+        public string email { get; set; }
     }
 }

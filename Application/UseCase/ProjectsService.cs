@@ -34,6 +34,7 @@ namespace Application.UseCase
 
         public async Task<ProjectDetails> CreateProject(ProjectRequest request)
         {
+
             //validaciones
             request.validacion();            
             await _campaignTypesService.existe(request.CampaignType.Value);
@@ -56,18 +57,43 @@ namespace Application.UseCase
             };
             await _command.insertProject(project);
 
-            var Response = await _projectsQuery.GetProject(project.ProjectID);
+            var response = new ProjectDetails
+            {
+                data = new ProjectsResponse
+                {
+                    ID = project.ProjectID,
+                    Name = project.ProjectName,
+                    Start = project.StartDate,
+                    End = project.EndDate,
+                    Client = new ClientsResponse
+                    {
+                        id = project.ClientID,
+                        Name = (await _clientService.GetById(project.ClientID)).Name,
+                        Email = (await _clientService.GetById(project.ClientID)).Email,
+                        Company = (await _clientService.GetById(project.ClientID)).Company,
+                        Phone = (await _clientService.GetById(project.ClientID)).Phone,
+                        Address = (await _clientService.GetById(project.ClientID)).Address
+                    },
+                    CampaignType = new GenericResponse
+                    {
+                        Id = project.CampaignType,
+                        Name = (await _campaignTypesService.GetById(project.CampaignType)).Name
+                    }
+                },
+                Interactions = new List<InteractionsResponse>(),
+                Tasks = new List<TasksResponse>()
+            };
 
-            return Response;
+            return response;
 
-            
-            
+
         }
 
-        public async Task<ICollection<ProjectsResponse>> GetAll(string? name, int? campaignType, int? client, int? offset, int? size)
+        public async Task<ICollection<ProjectsResponse>> GetAll(string? name, int? campaign, int? client, int? offset, int? size)
         {
-            var result = await _projectsQuery.GetAll(name, campaignType,client, offset, size);
-            return result;
+            var result = await _projectsQuery.GetAll(name, campaign,client, offset, size);
+            var response = result.Select(ProjectsResponse.FromProject).ToList();
+            return response;
 
         }
 
@@ -76,7 +102,8 @@ namespace Application.UseCase
         {
             await _projectsQuery.ProjectExist(id);
             var project = await _projectsQuery.GetProject(id);
-            return project;
+            var response = (ProjectDetails)project;
+            return response;
         }
 
 
@@ -84,17 +111,26 @@ namespace Application.UseCase
         {
             await _projectsQuery.ProjectExist(id);
             request.validacion();
-            await _interactionTypesService.existe(request.InteractionType);
-            await _command.update(id);
-            return await _interactionService.InsertInteraction(id, request);
+            bool typeExist = await _interactionTypesService.existe(request.InteractionType);
+            if (!typeExist)
+            {
+                throw new InvalidOperationException("El tipo de interaccion ingresado no es valido");
+            }
+
+
+            var project = await _projectsQuery.GetProject(id);
+            var response = await _interactionService.InsertInteraction(project, request);
+            await _command.update(project);
+            return response;
         }
 
         public async Task<TasksResponse> AddTask(Guid id, TaskRequest request)
         {
             await _projectsQuery.ProjectExist(id);
             request.validacion();
-            var result = await _taskService.InsertTask(id, request);
-            await _command.update(id);
+            var project = await _projectsQuery.GetProject(id);
+            var result = await _taskService.InsertTask(project, request);
+            await _command.update(project);
             return result;
 
         }
@@ -108,24 +144,25 @@ namespace Application.UseCase
 
             var response = new TasksResponse
             {
-                TaskID = id,
-                TaskName = task.Name,
-                TaskDueDate = task.DueDate,
-                ProjectID = task.ProjectID,
-                TaskStatus = new GenericResponse
+                id = id,
+                name = task.Name,
+                dueDate = task.DueDate,
+                projectId = task.ProjectID,
+                status = new GenericResponse
                 {
                     Id = task.Status,
                     Name = task.TaskStatus.Name
                 },
-                TaskUser = new UserResponse
+                userAssigned = new UserResponse
                 {
-                    UserID = task.AssignedTo,
-                    UserName = task.User.Name,
-                    UserEmail = task.User.Email,
+                    id = task.AssignedTo,
+                    name = task.User.Name,
+                    email = task.User.Email,
                 }
             };
 
-            await _command.update(task.ProjectID);
+            var project = await _projectsQuery.GetProject(task.ProjectID);
+            await _command.update(project);
             return response;
 
         }

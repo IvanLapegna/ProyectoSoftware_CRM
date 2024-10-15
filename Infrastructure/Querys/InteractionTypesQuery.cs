@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Application.Response;
+using Domain.Entities;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -19,23 +20,12 @@ namespace Infrastructure.Querys
             _context = context;
         }
 
-        public async Task<ICollection<GenericResponse>> GetAll()
+        public async Task<ICollection<InteractionTypes>> GetAll()
         {
             var interactionTypes = await _context.InteractionTypes.ToListAsync();
-            ICollection<GenericResponse> list = new List<GenericResponse>();
-            foreach (var x in interactionTypes)
-            {
-                GenericResponse res = new GenericResponse()
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                };
-                list.Add(res);
+            
 
-
-            };
-
-            return list;
+            return interactionTypes;
         }
 
         public async Task<bool> existe(int id)
@@ -49,6 +39,8 @@ namespace Infrastructure.Querys
             }
             return exist;
         }
+
+        
 
     }
 }

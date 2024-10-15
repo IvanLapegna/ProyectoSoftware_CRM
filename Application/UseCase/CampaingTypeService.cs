@@ -22,13 +22,40 @@ namespace Application.UseCase
         public async Task<ICollection<GenericResponse>> GetAll()
         {
             var campaignTypes = await _campaignTypesQuery.GetAll();
-            return campaignTypes;
+            ICollection<GenericResponse> list = new List<GenericResponse>();
+            foreach (var x in campaignTypes)
+            {
+                GenericResponse res = new GenericResponse()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                };
+                list.Add(res);
+
+            };
+            return list;
         }
 
         public async Task<bool> existe(int id)
         {
            return await _campaignTypesQuery.existe(id);
         }
+
+        public async Task<GenericResponse> GetById(int id)
+        {
+            var campaignType = await _campaignTypesQuery.GetById(id);
+            if (campaignType == null)
+            {
+                throw new InvalidOperationException("No existe un tipo de campaña con el id introducido");
+            }
+            return new GenericResponse
+            {
+                Id = campaignType.Id,
+                Name = campaignType.Name
+            };
+        }
+
+
 
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces;
 using Application.Models;
 using Application.Response;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,15 +13,29 @@ namespace Application.UseCase
     public class InteractionService: IInteractionService
     {
         private readonly IInteractionCommand _interactionCommand;
-
-        public InteractionService(IInteractionCommand interactionCommand)
+        private readonly IInteractionTypesService _interactionTypesService;
+        public InteractionService(IInteractionCommand interactionCommand, IInteractionTypesService interactionTypesService)
         {
             _interactionCommand = interactionCommand;
+            _interactionTypesService = interactionTypesService;
         }
 
-        public async Task<InteractionsResponse> InsertInteraction(Guid projectId, InteractionRequest request)
+        public async Task<InteractionsResponse> InsertInteraction(Projects project, InteractionRequest request)
         {
-            return await _interactionCommand.AddInteraction(projectId, request);
+            var interaction = await _interactionCommand.AddInteraction(project, request);
+            var response = new InteractionsResponse
+            {
+                id = interaction.InteractionID,
+                Notes = interaction.Notes,
+                Date = interaction.Date,
+                ProjectID = project.ProjectID,
+                InteractionType = new GenericResponse
+                {
+                    Id = request.InteractionType,
+                    Name = interaction.InteractionTypesObj.Name,
+                }
+            };
+            return response;
 
         }
 

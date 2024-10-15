@@ -21,22 +21,9 @@ namespace Infrastructure.Querys
             _context = context;
         }
 
-        public async Task<ICollection<ClientsResponse>> GetAll()
+        public async Task<ICollection<Clients>> GetAll()
         {
-            var clients = await _context.Clients
-                .Select(client => new ClientsResponse 
-                {
-                    ClientID = client.ClientID,
-                    Name = client.Name,
-                    Email = client.Email,
-                    Phone = client.Phone,
-                    Company = client.Company,
-                    Address = client.Address,
-
-                }).ToListAsync();
-
-                
-
+            var clients = await _context.Clients.ToListAsync();
             return clients;
         }
 
@@ -50,6 +37,14 @@ namespace Infrastructure.Querys
 
             }
             return exist;
+        }
+
+        public async Task<Clients> GetById(int id)
+        {
+            var client = await _context.Clients.FirstOrDefaultAsync(c => c.ClientID == id);
+            return client;
+
+
         }
 
     }

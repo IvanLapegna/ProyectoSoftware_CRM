@@ -1,4 +1,5 @@
 ﻿using Application.Response;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,9 @@ namespace Application.Interfaces
 {
     public interface ITaskStatusQuery
     {
-        Task<ICollection<GenericResponse>> GetAll();
+        Task<ICollection<Domain.Entities.TaskStatus>> GetAll();
 
         Task<bool> existe(int id);
+
     }
 }

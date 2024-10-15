@@ -10,9 +10,9 @@ namespace Application.Interfaces
 {
     public interface ICampaignTypesQuery
     {
-        Task<ICollection<GenericResponse>> GetAll();
+        Task<ICollection<CampaignTypes>> GetAll();
 
         Task<bool> existe(int id);
-
+        Task<CampaignTypes> GetById(int id);
     }
 }

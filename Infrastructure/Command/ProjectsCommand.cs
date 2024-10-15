@@ -23,16 +23,14 @@ namespace Infrastructure.Command
 
         public async Task insertProject(Projects project)
         {
-
             _context.Add(project);
             await _context.SaveChangesAsync();      
         }
 
-        public async Task update(Guid projectId)
+        public async Task update(Projects project)
         {
-            var proyect = await _context.Projects
-                            .FirstOrDefaultAsync(p => p.ProjectID == projectId);
-            proyect.UpdateDate = DateTime.Now;
+
+            project.UpdateDate = DateTime.Now;
 
             await _context.SaveChangesAsync();
         }

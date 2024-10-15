@@ -10,11 +10,11 @@ namespace ProyectoSoftware_CRM.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class ProjectsController : ControllerBase
+    public class ProjectController : ControllerBase
     {
         private readonly IProjectsService _projectsService;
 
-        public ProjectsController(IProjectsService projectsService)
+        public ProjectController(IProjectsService projectsService)
         {
             _projectsService = projectsService;
         }
@@ -22,9 +22,9 @@ namespace ProyectoSoftware_CRM.Controllers
 
         [HttpGet]
 
-        public async Task<IActionResult> GetAll(string? name , int? campaignType , int? client, int? offset, int? size)
+        public async Task<IActionResult> GetAll(string? name , int? campaign , int? client, int? offset, int? size = null)
         {
-            var result = await _projectsService.GetAll(name ,campaignType, client, offset, size);
+            var result = await _projectsService.GetAll(name ,campaign, client, offset, size);
             return new JsonResult(result);
         }
 
@@ -71,7 +71,7 @@ namespace ProyectoSoftware_CRM.Controllers
             try
             {
                 var result = await _projectsService.AddInteraction(id, request);
-                return new JsonResult(result);
+                return new JsonResult(result) { StatusCode = 201 }; ;
             }
             catch (Exception ex)
             {
@@ -86,7 +86,7 @@ namespace ProyectoSoftware_CRM.Controllers
             try
             {
                 var result = await _projectsService.AddTask(id, request);
-                return new JsonResult(result);
+                return new JsonResult(result) { StatusCode = 201 }; ;
             }
             catch (Exception ex)
             {
