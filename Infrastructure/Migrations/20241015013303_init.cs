@@ -97,7 +97,7 @@ namespace Infrastructure.Migrations
                 name: "Projects",
                 columns: table => new
                 {
-                    ProjectID = table.Column<Guid>(type: "char(36)", nullable: false, defaultValueSql: "(UUID())"),
+                    ProjectID = table.Column<Guid>(type: "char(36)", nullable: false),
                     ProjectName = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
                     CampaignType = table.Column<int>(type: "int", nullable: false),
                     ClientID = table.Column<int>(type: "int", nullable: false),
@@ -128,7 +128,7 @@ namespace Infrastructure.Migrations
                 name: "Interactions",
                 columns: table => new
                 {
-                    InteractionID = table.Column<Guid>(type: "char(36)", nullable: false, defaultValueSql: "(UUID())"),
+                    InteractionID = table.Column<Guid>(type: "char(36)", nullable: false),
                     ProjectID = table.Column<Guid>(type: "char(36)", nullable: false),
                     InteractionType = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime", nullable: false),
@@ -156,7 +156,7 @@ namespace Infrastructure.Migrations
                 name: "Tasks",
                 columns: table => new
                 {
-                    TaskID = table.Column<Guid>(type: "char(36)", nullable: false, defaultValueSql: "(UUID())"),
+                    TaskID = table.Column<Guid>(type: "char(36)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     DueDate = table.Column<DateTime>(type: "datetime", nullable: false),
                     ProjectID = table.Column<Guid>(type: "char(36)", nullable: false),
@@ -198,6 +198,18 @@ namespace Infrastructure.Migrations
                     { 2, "PPC" },
                     { 3, "Social Media" },
                     { 4, "Email Marketing" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Clients",
+                columns: new[] { "ClientID", "Address", "Company", "CreateDate", "Email", "Name", "Phone" },
+                values: new object[,]
+                {
+                    { 1, "Berazategui C.19 2977", "Carniceria El torito", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "ivanlapegna@yahoo.com", "Ivan Lapegna", "11 5752-8181" },
+                    { 2, "Ezpeleta C.Honduras 5580", "FarmaPlus", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "fgiordano@hotmail.com", "Franco Giordano", "11 3626-6171" },
+                    { 3, "Florencio Varela C.Neuquén 1955", "El Bazar Digital", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "virginiacasero@gmail.com", "Virginia Casero", "11 6589-3432" },
+                    { 4, "La Plata C.48 920 ", "Panaderia Estilo", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "mnegrotto@gmail.com", "Marcos Negrotto", "11 6798-1235" },
+                    { 5, "Belgrano C.Moldes 2139", "DreamGym", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "ASanGerman@yahoo.com", "Alex San German", "11 6752-4164" }
                 });
 
             migrationBuilder.InsertData(

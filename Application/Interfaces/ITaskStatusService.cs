@@ -12,7 +12,7 @@ namespace Application.Interfaces
 
         Task<ICollection<GenericResponse>> GetAll();
         Task<bool> existe(int id);
-
+        Task<Domain.Entities.TaskStatus> GetById(int id);
 
     }
 }

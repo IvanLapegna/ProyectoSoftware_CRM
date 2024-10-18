@@ -41,8 +41,12 @@ namespace Infrastructure.Querys
             return exist;
         }
 
+        public async Task<Domain.Entities.TaskStatus> GetStatus(int id)
+        {
+            var status = await _context.TaskStatus.FirstOrDefaultAsync(c => c.Id == id);
+            return status;
+        }
 
-        
-        
+
     }
 }

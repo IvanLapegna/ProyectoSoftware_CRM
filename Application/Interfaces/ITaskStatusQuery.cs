@@ -13,6 +13,6 @@ namespace Application.Interfaces
         Task<ICollection<Domain.Entities.TaskStatus>> GetAll();
 
         Task<bool> existe(int id);
-
+        Task<Domain.Entities.TaskStatus> GetStatus(int id);
     }
 }

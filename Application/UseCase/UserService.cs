@@ -36,6 +36,11 @@ namespace Application.UseCase
             return await _userQuey.existe(id);
         }
 
+        public async Task<Users> GetById(int id)
+        {
+            return await _userQuey.GetUser(id);
+        }
+
         
     }
 }

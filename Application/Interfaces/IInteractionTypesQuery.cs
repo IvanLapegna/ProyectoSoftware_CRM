@@ -12,6 +12,6 @@ namespace Application.Interfaces
     {
         Task<ICollection<InteractionTypes>> GetAll();
         Task<bool> existe(int id);
-
+        Task<InteractionTypes> GetbyID(int id);
     }
 }

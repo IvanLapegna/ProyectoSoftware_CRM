@@ -216,11 +216,11 @@ namespace Infrastructure.Persistence
                 .HasForeignKey(p => p.ClientID);
 
                 entity.HasData(
-                new Clients { Name = "Ivan Lapegna", Email = "ivanlapegna@yahoo.com", Company = "Carniceria El torito", Phone = "11 5752-8181", Address = "Berazategui C.19 2977" },
-                new Clients { Name = "Franco Giordano", Email = "fgiordano@hotmail.com",Company = "FarmaPlus", Phone = "11 3626-6171", Address = "Ezpeleta C.Honduras 5580" },
-                new Clients { Name = "Virginia Casero", Email = "virginiacasero@gmail.com", Company = "El Bazar Digital", Phone = "11 6589-3432", Address = "Florencio Varela C.Neuquén 1955" },
-                new Clients { Name = "Marcos Negrotto", Email = "mnegrotto@gmail.com", Company = "Panaderia Estilo", Phone = "11 6798-1235", Address = "La Plata C.48 920 " },
-                new Clients { Name = "Alex San German", Email = "ASanGerman@yahoo.com", Company = "DreamGym", Phone = "11 6752-4164", Address = "Belgrano C.Moldes 2139" }
+                new Clients {ClientID=1 ,Name = "Ivan Lapegna", Email = "ivanlapegna@yahoo.com", Company = "Carniceria El torito", Phone = "11 5752-8181", Address = "Berazategui C.19 2977" },
+                new Clients {ClientID = 2, Name = "Franco Giordano", Email = "fgiordano@hotmail.com",Company = "FarmaPlus", Phone = "11 3626-6171", Address = "Ezpeleta C.Honduras 5580" },
+                new Clients {ClientID = 3, Name = "Virginia Casero", Email = "virginiacasero@gmail.com", Company = "El Bazar Digital", Phone = "11 6589-3432", Address = "Florencio Varela C.Neuquén 1955" },
+                new Clients {ClientID = 4, Name = "Marcos Negrotto", Email = "mnegrotto@gmail.com", Company = "Panaderia Estilo", Phone = "11 6798-1235", Address = "La Plata C.48 920 " },
+                new Clients {ClientID = 5, Name = "Alex San German", Email = "ASanGerman@yahoo.com", Company = "DreamGym", Phone = "11 6752-4164", Address = "Belgrano C.Moldes 2139" }
 
 
                 );

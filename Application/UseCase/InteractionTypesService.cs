@@ -41,6 +41,9 @@ namespace Application.UseCase
             return await _interactionTypesQuery.existe(id);
         }
 
-        
+        public async Task<InteractionTypes> GetbyID(int id)
+        {
+            return await _interactionTypesQuery.GetbyID(id);
+        }
     }
 }

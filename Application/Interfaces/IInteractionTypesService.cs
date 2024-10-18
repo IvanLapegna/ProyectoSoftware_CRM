@@ -14,5 +14,6 @@ namespace Application.Interfaces
 
         Task<bool> existe(int id);
 
+        Task<InteractionTypes> GetbyID(int id);
     }
 }

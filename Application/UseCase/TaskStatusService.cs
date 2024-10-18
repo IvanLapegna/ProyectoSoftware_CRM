@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TaskStatus = Domain.Entities.TaskStatus;
 
 namespace Application.UseCase
 {
@@ -42,6 +43,11 @@ namespace Application.UseCase
             return await _taskStatusQuery.existe(id);
         }
 
-        
+        public async Task<TaskStatus> GetById(int id)
+        {
+            return await _taskStatusQuery.GetStatus(id);
+        }
+
+
     }
 }

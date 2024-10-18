@@ -40,7 +40,12 @@ namespace Infrastructure.Querys
             return exist;
         }
 
-        
+        public async Task<InteractionTypes> GetbyID(int id)
+        {
+            var type = await _context.InteractionTypes.FirstOrDefaultAsync(c => c.Id == id);
+            return type;
+        }
+
 
     }
 }

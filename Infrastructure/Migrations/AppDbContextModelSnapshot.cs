@@ -94,6 +94,58 @@ namespace Infrastructure.Migrations
                     b.HasKey("ClientID");
 
                     b.ToTable("Clients", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            ClientID = 1,
+                            Address = "Berazategui C.19 2977",
+                            Company = "Carniceria El torito",
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "ivanlapegna@yahoo.com",
+                            Name = "Ivan Lapegna",
+                            Phone = "11 5752-8181"
+                        },
+                        new
+                        {
+                            ClientID = 2,
+                            Address = "Ezpeleta C.Honduras 5580",
+                            Company = "FarmaPlus",
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "fgiordano@hotmail.com",
+                            Name = "Franco Giordano",
+                            Phone = "11 3626-6171"
+                        },
+                        new
+                        {
+                            ClientID = 3,
+                            Address = "Florencio Varela C.Neuquén 1955",
+                            Company = "El Bazar Digital",
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "virginiacasero@gmail.com",
+                            Name = "Virginia Casero",
+                            Phone = "11 6589-3432"
+                        },
+                        new
+                        {
+                            ClientID = 4,
+                            Address = "La Plata C.48 920 ",
+                            Company = "Panaderia Estilo",
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "mnegrotto@gmail.com",
+                            Name = "Marcos Negrotto",
+                            Phone = "11 6798-1235"
+                        },
+                        new
+                        {
+                            ClientID = 5,
+                            Address = "Belgrano C.Moldes 2139",
+                            Company = "DreamGym",
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "ASanGerman@yahoo.com",
+                            Name = "Alex San German",
+                            Phone = "11 6752-4164"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.InteractionTypes", b =>
@@ -138,8 +190,7 @@ namespace Infrastructure.Migrations
                 {
                     b.Property<Guid>("InteractionID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)")
-                        .HasDefaultValueSql("(UUID())");
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime");
@@ -168,8 +219,7 @@ namespace Infrastructure.Migrations
                 {
                     b.Property<Guid>("ProjectID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)")
-                        .HasDefaultValueSql("(UUID())");
+                        .HasColumnType("char(36)");
 
                     b.Property<int>("CampaignType")
                         .HasColumnType("int");
@@ -250,8 +300,7 @@ namespace Infrastructure.Migrations
                 {
                     b.Property<Guid>("TaskID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)")
-                        .HasDefaultValueSql("(UUID())");
+                        .HasColumnType("char(36)");
 
                     b.Property<int>("AssignedTo")
                         .HasColumnType("int");

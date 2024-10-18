@@ -22,7 +22,9 @@ namespace Application.UseCase
 
         public async Task<InteractionsResponse> InsertInteraction(Projects project, InteractionRequest request)
         {
+         
             var interaction = await _interactionCommand.AddInteraction(project, request);
+            var type = await _interactionTypesService.GetbyID(request.InteractionType);
             var response = new InteractionsResponse
             {
                 id = interaction.InteractionID,
@@ -32,7 +34,7 @@ namespace Application.UseCase
                 InteractionType = new GenericResponse
                 {
                     Id = request.InteractionType,
-                    Name = interaction.InteractionTypesObj.Name,
+                    Name = type.Name,
                 }
             };
             return response;

@@ -29,23 +29,26 @@ namespace Application.UseCase
             await _userService.existe(request.user);
             await _taskStatusService.existe(request.Status);
             var task = await _taskCommand.CreateTask(project, request);
+            var user = await _userService.GetById(request.user);
+            var status = await _taskStatusService.GetById(request.Status);
+
 
             var response = new TasksResponse
             {
                 id = task.TaskID,
                 name = task.Name,
                 dueDate = task.DueDate,
-                projectId = project.ProjectID,
+                projectId = project.ProjectID,  
                 status = new GenericResponse
                 {
                     Id = request.Status,
-                    Name = task.TaskStatus.Name,
+                    Name = status.Name,
                 },
                 userAssigned = new UserResponse
                 {
                     id = request.user,
-                    name = task.User.Name,
-                    email = task.User.Email,
+                    name = user.Name,
+                    email = user.Email,
 
                 }
 
