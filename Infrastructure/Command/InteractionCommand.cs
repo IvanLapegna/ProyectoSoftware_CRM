@@ -22,15 +22,8 @@ namespace Infrastructure.Command
             _context = context;
         }
 
-        public async Task<Interactions> AddInteraction(Projects project, InteractionRequest request)
+        public async Task<Interactions> AddInteraction(Projects project, Interactions interaction)
         {
-
-            var interaction = new Interactions
-            {
-                Notes = request.Notes,
-                Date = request.Date,
-                InteractionType = request.InteractionType,
-            };
 
             project.Interactions.Add(interaction);
 

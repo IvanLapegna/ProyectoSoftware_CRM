@@ -20,7 +20,6 @@ namespace Application.UseCase
         private readonly ICampaignTypesService _campaignTypesService;
         private readonly IClientService _clientService;
         private readonly IInteractionTypesService _interactionTypesService;
-        private readonly IUserService _userService;
         private readonly ITaskStatusService _taskStatusService;
         public ProjectsService(IProjectsCommand command, IProjectsQuery query, IInteractionService interactionService, ITaskService taskService, IClientService clientsService, ICampaignTypesService campaignTypesService, IInteractionTypesService interactionTypesService, ITaskStatusService taskStatusService)
         {
@@ -95,22 +94,32 @@ namespace Application.UseCase
         {
             if (campaign.HasValue && campaign.GetType() != typeof(int))
             {
-                throw new ArgumentException("El parámetro 'campaign' debe ser de tipo int.");
+                throw new ArgumentException("El parámetro campaign debe ser de tipo int.");
             }
+
 
             if (client.HasValue && client.GetType() != typeof(int))
             {
-                throw new ArgumentException("El parámetro 'client' debe ser de tipo int.");
+                throw new ArgumentException("El parámetro client debe ser de tipo int.");
             }
 
             if (offset.HasValue && offset.GetType() != typeof(int))
             {
-                throw new ArgumentException("El parámetro 'offset' debe ser de tipo int.");
+                throw new ArgumentException("El parámetro offset debe ser de tipo int.");
             }
 
             if (size.HasValue && size.GetType() != typeof(int))
             {
-                throw new ArgumentException("El parámetro 'size' debe ser de tipo int.");
+                throw new ArgumentException("El parámetro size debe ser de tipo int.");
+            }
+
+            if (size < 0)
+            {
+                throw new ArgumentException("El parámetro size debe ser positivo.");
+            }
+            if (offset < 0)
+            {
+                throw new ArgumentException("El parámetro offset debe ser positivo.");
             }
 
             var result = await _projectsQuery.GetAll(name, campaign,client, offset, size);

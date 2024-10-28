@@ -28,7 +28,15 @@ namespace Application.UseCase
         {
             await _userService.existe(request.user);
             await _taskStatusService.existe(request.Status);
-            var task = await _taskCommand.CreateTask(project, request);
+            var newTask = new Tasks
+            {
+                Name = request.Name,
+                DueDate = request.DueDate,
+                AssignedTo = request.user,
+                Status = request.Status,
+                CreateDate = DateTime.Now,
+            };
+            var task = await _taskCommand.CreateTask(project, newTask);
             var user = await _userService.GetById(request.user);
             var status = await _taskStatusService.GetById(request.Status);
 
@@ -62,7 +70,12 @@ namespace Application.UseCase
             await _userService.existe(request.user);
             await _taskStatusService.existe(request.Status);
             var task = await _taskQuery.GetById(id);
-            await _taskCommand.UpdateTask(task, request);
+            task.Name = request.Name;
+            task.DueDate = request.DueDate;
+            task.AssignedTo = request.user;
+            task.Status = request.Status;
+            task.UpdateDate = DateTime.Now;
+            await _taskCommand.UpdateTask(task);
 
 
         }

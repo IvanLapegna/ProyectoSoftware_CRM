@@ -22,8 +22,14 @@ namespace Application.UseCase
 
         public async Task<InteractionsResponse> InsertInteraction(Projects project, InteractionRequest request)
         {
-         
-            var interaction = await _interactionCommand.AddInteraction(project, request);
+
+            var newInteraction = new Interactions
+            {
+                Notes = request.Notes,
+                Date = request.Date,
+                InteractionType = request.InteractionType,
+            };
+            var interaction = await _interactionCommand.AddInteraction(project, newInteraction);
             var type = await _interactionTypesService.GetbyID(request.InteractionType);
             var response = new InteractionsResponse
             {

@@ -11,7 +11,7 @@ namespace Application.Interfaces
 {
     public interface IInteractionCommand
     {
-        Task<Interactions> AddInteraction(Projects project, InteractionRequest request);
+        Task<Interactions> AddInteraction(Projects project, Interactions interaction);
 
     }
 }

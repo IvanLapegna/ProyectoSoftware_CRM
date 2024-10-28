@@ -11,9 +11,9 @@ namespace Application.Interfaces
 {
     public interface ITaskCommand
     {
-        Task<Tasks> CreateTask(Projects project, TaskRequest request);
+        Task<Tasks> CreateTask(Projects project, Tasks request);
 
-        Task UpdateTask(Tasks task, TaskRequest request);
+        Task UpdateTask(Tasks task);
 
 
     }

@@ -22,17 +22,9 @@ namespace Infrastructure.Command
             _context = context;
         }
 
-        public async Task<Tasks> CreateTask(Projects project, TaskRequest request)
+        public async Task<Tasks> CreateTask(Projects project, Tasks task)
         {
-            var task = new Tasks
-            {
-                Name = request.Name,
-                DueDate = request.DueDate,
-                AssignedTo = request.user,
-                Status = request.Status,
-                CreateDate = DateTime.Now,
-            };
-
+           
             project.Tasks.Add(task);
 
             await _context.SaveChangesAsync();
@@ -42,14 +34,8 @@ namespace Infrastructure.Command
             
         }
 
-        public async Task UpdateTask(Tasks task, TaskRequest request)
+        public async Task UpdateTask(Tasks task)
         {
-
-            task.Name = request.Name;
-            task.DueDate = request.DueDate;
-            task.AssignedTo = request.user;
-            task.Status = request.Status;
-            task.UpdateDate = DateTime.Now;
 
             _context.Tasks.Update(task);
             await _context.SaveChangesAsync();
