@@ -3,6 +3,7 @@ using Application.Models;
 using Application.Response;
 using Domain.Entities;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -72,7 +73,15 @@ namespace Application.UseCase
 
         public async Task<bool> existe(int id)
         {
-            return await _clientQuery.existe(id);
+            bool exist = await _clientQuery.existe(id);
+
+            if (!exist)
+            {
+                throw new InvalidOperationException("El id introducido para Client no coincide con ningun registro");
+
+            }
+
+            return exist;
         }
 
 

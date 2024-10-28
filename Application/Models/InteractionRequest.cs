@@ -22,7 +22,7 @@ namespace Application.Models
             {
                 throw new ArgumentNullException(nameof(Date));
             }
-            else if (InteractionType <= 0 || InteractionType ==null)
+            else if (InteractionType <= 0 )
             {
                 throw new ArgumentNullException(nameof(InteractionType));
             }

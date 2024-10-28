@@ -30,14 +30,8 @@ namespace Infrastructure.Querys
 
         public async Task<bool> existe(int id)
         {
-            var exist = await _context.InteractionTypes.AnyAsync(c => c.Id == id);
-
-            if (!exist)
-            {
-                throw new InvalidOperationException("El id introducido para InteractionTypes no coincide con ningun registro");
-
-            }
-            return exist;
+            
+            return await _context.InteractionTypes.AnyAsync(c => c.Id == id);
         }
 
         public async Task<InteractionTypes> GetbyID(int id)

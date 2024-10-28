@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace Application.UseCase
 {
-    public class CampaingTypeService: ICampaignTypesService
+    public class CampaignTypeService: ICampaignTypesService
     {
         private readonly ICampaignTypesQuery _campaignTypesQuery;
 
-        public CampaingTypeService(ICampaignTypesQuery campaignTypesQuery)
+        public CampaignTypeService(ICampaignTypesQuery campaignTypesQuery)
         {
             _campaignTypesQuery = campaignTypesQuery;
         }
@@ -38,7 +38,13 @@ namespace Application.UseCase
 
         public async Task<bool> existe(int id)
         {
-           return await _campaignTypesQuery.existe(id);
+            bool exist = await _campaignTypesQuery.existe(id);
+            if (!exist)
+            {
+                throw new InvalidOperationException("El id introducido para campaignTypes no coincide con ningun registro");
+            }
+            return exist;
+
         }
 
         public async Task<GenericResponse> GetById(int id)

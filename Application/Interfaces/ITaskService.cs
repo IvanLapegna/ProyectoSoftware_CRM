@@ -16,7 +16,7 @@ namespace Application.Interfaces
 
         Task UpdateTask(Guid id, TaskRequest request);
         Task<Tasks> GetById(Guid id);
-
+        Task<bool> existe(Guid id);
 
     }
 }

@@ -48,7 +48,7 @@ namespace Application.Response
                     id = i.InteractionID,
                     Notes = i.Notes,
                     Date = i.Date,
-                    ProjectID = project.ProjectID,
+                    ProjectId = project.ProjectID,
                     InteractionType = new GenericResponse
                     {
                         Id = i.InteractionType,

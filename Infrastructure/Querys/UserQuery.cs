@@ -29,14 +29,8 @@ namespace Infrastructure.Querys
 
         public async Task<bool> existe(int id)
         {
-            var exist = await _context.Users.AnyAsync(u => u.UserID == id);
-
-            if (!exist)
-            {
-                throw new InvalidOperationException("El id introducido para User no coincide con ningun registro");
-
-            }
-            return exist;
+            
+            return await _context.Users.AnyAsync(u => u.UserID == id);
         }
 
         public async Task<Users> GetUser(int id)

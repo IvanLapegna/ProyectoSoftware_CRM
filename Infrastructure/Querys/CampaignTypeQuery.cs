@@ -4,6 +4,7 @@ using Domain.Entities;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,11 +13,11 @@ using System.Xml.Linq;
 
 namespace Infrastructure.Querys
 {
-    public class CampaingTypeQuery: ICampaignTypesQuery
+    public class CampaignTypeQuery: ICampaignTypesQuery
     {
         private readonly AppDbContext _context;
 
-        public CampaingTypeQuery(AppDbContext context)
+        public CampaignTypeQuery(AppDbContext context)
         {
             _context = context;
         }
@@ -31,15 +32,11 @@ namespace Infrastructure.Querys
 
         public async Task<bool> existe(int id)
         {
-            var exist = await _context.CampaignTypes.AnyAsync(c => c.Id == id);
+            return await _context.CampaignTypes.AnyAsync(c => c.Id == id);
 
-            if (!exist)
-            {
-                throw new InvalidOperationException("El id introducido para campaignTypes no coincide con ningun registro");
-
-            }
-            return exist;
         }
+
+        
 
         public async Task<CampaignTypes> GetById(int id)
         {

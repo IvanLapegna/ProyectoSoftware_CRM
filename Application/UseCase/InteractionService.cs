@@ -30,7 +30,7 @@ namespace Application.UseCase
                 id = interaction.InteractionID,
                 Notes = interaction.Notes,
                 Date = interaction.Date,
-                ProjectID = project.ProjectID,
+                ProjectId = project.ProjectID,
                 InteractionType = new GenericResponse
                 {
                     Id = request.InteractionType,

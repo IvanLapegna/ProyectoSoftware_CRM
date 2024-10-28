@@ -58,7 +58,9 @@ namespace Application.UseCase
         }
 
         public async Task UpdateTask(Guid id, TaskRequest request)
-        {   
+        {
+            await _userService.existe(request.user);
+            await _taskStatusService.existe(request.Status);
             var task = await _taskQuery.GetById(id);
             await _taskCommand.UpdateTask(task, request);
 
@@ -70,6 +72,17 @@ namespace Application.UseCase
             return await _taskQuery.GetById(id);
         }
 
+        public async Task<bool> existe(Guid id)
+        {
+            var exist = await _taskQuery.existe(id);
+
+            if (!exist)
+            {
+                throw new InvalidOperationException("El id introducido para Task no coincide con ningun registro");
+
+            }
+            return exist;
+        }
 
     }
 }

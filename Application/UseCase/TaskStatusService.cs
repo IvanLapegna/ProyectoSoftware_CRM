@@ -40,7 +40,14 @@ namespace Application.UseCase
 
         public async Task<bool> existe(int id)
         {
-            return await _taskStatusQuery.existe(id);
+            var exist = await _taskStatusQuery.existe(id);
+
+            if (!exist)
+            {
+                throw new InvalidOperationException("El id introducido para Status no coincide con ningun registro");
+
+            }
+            return exist;
         }
 
         public async Task<TaskStatus> GetById(int id)

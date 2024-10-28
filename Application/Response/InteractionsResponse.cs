@@ -12,7 +12,7 @@ namespace Application.Response
         public Guid id { get; set; }
         public string Notes { get; set; }
         public DateTime Date { get; set; }
-        public Guid ProjectID { get; set; }
+        public Guid ProjectId { get; set; }
         public GenericResponse InteractionType { get; set; }
 
     }

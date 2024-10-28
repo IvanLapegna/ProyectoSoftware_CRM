@@ -28,8 +28,8 @@ builder.Services.AddScoped<IClientService, ClientsService>();
 builder.Services.AddScoped<IClientQuery, ClientQuery>();
 builder.Services.AddScoped<IClientsCommand, ClientsCommand>();
                 //CampaingType
-builder.Services.AddScoped<ICampaignTypesService, CampaingTypeService>();
-builder.Services.AddScoped<ICampaignTypesQuery, CampaingTypeQuery>();
+builder.Services.AddScoped<ICampaignTypesService, CampaignTypeService>();
+builder.Services.AddScoped<ICampaignTypesQuery, CampaignTypeQuery>();
 
                 //TaskStatus
 builder.Services.AddScoped<ITaskStatusService, TaskStatusService>();

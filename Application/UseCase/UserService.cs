@@ -12,16 +12,16 @@ namespace Application.UseCase
 {
     public class UserService : IUserService
     {
-        private readonly IUserQuery _userQuey;
+        private readonly IUserQuery _userQuery;
 
         public UserService(IUserQuery userQuey)
         {
-            _userQuey = userQuey;
+            _userQuery = userQuey;
         }
 
         public async Task<ICollection<UserResponse>> GetAll()
         {
-            var users = await _userQuey.GetAll();
+            var users = await _userQuery.GetAll();
             var response = users.Select(user => new UserResponse
             {
                 id = user.UserID,
@@ -33,12 +33,19 @@ namespace Application.UseCase
 
         public async Task<bool> existe(int id)
         {
-            return await _userQuey.existe(id);
+            var exist = await _userQuery.existe(id);
+
+            if (!exist)
+            {
+                throw new InvalidOperationException("El id introducido para User no coincide con ningun registro");
+
+            }
+            return exist;
         }
 
         public async Task<Users> GetById(int id)
         {
-            return await _userQuey.GetUser(id);
+            return await _userQuery.GetUser(id);
         }
 
         

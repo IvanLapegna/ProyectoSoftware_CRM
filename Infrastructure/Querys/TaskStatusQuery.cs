@@ -1,4 +1,4 @@
-﻿using Application.Interfaces;
+﻿ using Application.Interfaces;
 using Application.Response;
 using Domain.Entities;
 using Infrastructure.Persistence;
@@ -31,14 +31,8 @@ namespace Infrastructure.Querys
 
         public async Task<bool> existe(int id)
         {
-            var exist = await _context.TaskStatus.AnyAsync(t => t.Id == id);
-
-            if (!exist)
-            {
-                throw new InvalidOperationException("El id introducido para Status no coincide con ningun registro");
-
-            }
-            return exist;
+            
+            return await _context.TaskStatus.AnyAsync(t => t.Id == id);
         }
 
         public async Task<Domain.Entities.TaskStatus> GetStatus(int id)

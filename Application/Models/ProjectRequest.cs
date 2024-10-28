@@ -10,40 +10,37 @@ namespace Application.Models
 {
     public class ProjectRequest
     {
-        public string ProjectName { get; set; }
+        public string name { get; set; }
+        public DateTime start { get; set; }
+        public DateTime end { get; set; }
+        public int? client { get; set; }
 
-        public int? CampaignType { get; set; }
-
-        public int? ClientID { get; set; }
-
-        public DateTime StartDate { get; set; }
-
-        public DateTime EndDate { get; set; }
+        public int? campaignType { get; set; }
 
 
         public void validacion()
         {
-            if (string.IsNullOrWhiteSpace(ProjectName))
+            if (string.IsNullOrWhiteSpace(name))
             {
-                throw new ArgumentNullException(nameof(ProjectName));
+                throw new ArgumentNullException(nameof(name));
             }
-            else if (CampaignType <= 0)
+            else if (campaignType <= 0 || campaignType == null )
             {
-                throw new ArgumentNullException(nameof(CampaignType));
+                throw new ArgumentNullException(nameof(campaignType));
             }
-            else if (ClientID <= 0)
+            else if (client <= 0 || client == null)
             {
-                throw new ArgumentNullException(nameof(ClientID));
+                throw new ArgumentNullException(nameof(client));
             }
-            else if (StartDate == default)
+            else if (start == default)
             {
-                throw new ArgumentException(nameof(StartDate));
+                throw new ArgumentException(nameof(start));
             }
-            else if (EndDate == default)
+            else if (end == default)
             {
-                throw new ArgumentException(nameof(EndDate));
+                throw new ArgumentException(nameof(end));
             }
-            else if (EndDate < StartDate)
+            else if (end < start)
             {
                 throw new InvalidDataException("La fecha de finalización no puede ser anterior a la de inicio");
             }

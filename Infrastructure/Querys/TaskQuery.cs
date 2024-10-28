@@ -35,5 +35,11 @@ namespace Infrastructure.Querys
 
         }
 
+        public async Task<bool> existe(Guid id)
+        {
+
+            return await _context.Tasks.AnyAsync(u => u.TaskID == id);
+        }
+
     }
 }

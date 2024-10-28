@@ -11,6 +11,6 @@ namespace Application.Interfaces
     public interface ITaskQuery
     {
         Task<Tasks> GetById(Guid id);
-
+        Task<bool> existe(Guid id);
     }
 }

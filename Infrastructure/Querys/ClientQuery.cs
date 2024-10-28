@@ -29,16 +29,10 @@ namespace Infrastructure.Querys
 
         public async Task<bool> existe(int id)
         {
-            var exist = await _context.Clients.AnyAsync(c => c.ClientID == id);
-            
-            if (!exist)
-            {
-                throw new InvalidOperationException("El id introducido para Client no coincide con ningun registro");
+            return await _context.Clients.AnyAsync(c => c.ClientID == id);
 
-            }
-            return exist;
         }
-
+      
         public async Task<Clients> GetById(int id)
         {
             var client = await _context.Clients.FirstOrDefaultAsync(c => c.ClientID == id);

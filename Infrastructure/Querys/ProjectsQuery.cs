@@ -73,13 +73,6 @@ namespace Infrastructure.Querys
                     .ThenInclude(i => i.InteractionTypesObj)
             .FirstOrDefaultAsync(p => p.ProjectID == id);
 
-
-            if (project == null)
-            {
-                return null;
-            }
-
-
              return project;
             
 
@@ -94,15 +87,8 @@ namespace Infrastructure.Querys
        
         public async Task<bool> ProjectExist(Guid id)
         {
-            var exist = await _context.Projects.AnyAsync(p => p.ProjectID == id);
-            if (exist)
-            {
-                return exist;
-            }
-            else 
-            {
-                throw new InvalidOperationException("No existe un proyecto con el id introducido");
-            }
+            return await _context.Projects.AnyAsync(p => p.ProjectID == id);
+            
             
         }
 
